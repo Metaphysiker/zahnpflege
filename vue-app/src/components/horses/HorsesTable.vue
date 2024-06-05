@@ -11,6 +11,11 @@ const availableTableDataHeaders = ref([
   { key: "name", title: "Name", selected: true },
   { key: "lastTimeBeschlagen", title: "Letzer Beschlag", selected: true },
   { key: "nextTimeBeschlagen", title: "nächstes Mal", selected: true },
+  {
+    key: "numberOfWeeksUntilNextBeschlag",
+    title: "Wochen bis nächster Beschlag",
+    selected: true,
+  },
   { key: "action", title: "Aktion", selected: true },
 ]);
 
@@ -32,6 +37,7 @@ onMounted(() => {
   horse1.lastTimeBeschlagen = new Date();
   horse1.numberOfWeeksUntilNextBeschlag = 1;
   const horse2 = new Horse();
+  horse2.lastTimeBeschlagen = dateHelper.addDays(new Date(), -1);
   const horse3 = new Horse();
   horses.value = [horse1, horse2, horse3];
 });
