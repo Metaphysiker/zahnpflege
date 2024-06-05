@@ -12,4 +12,7 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start-with-watch:dev"]
+ENTRYPOINT [ "sh", "entrypoint.sh" ]
+
+
+#CMD ["npm", "run", "start-with-watch:dev"]

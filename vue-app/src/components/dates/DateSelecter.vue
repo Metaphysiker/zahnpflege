@@ -29,7 +29,7 @@ const dateString = computed(() => {
       ></v-text-field>
     </template>
     <v-card>
-      <v-date-picker :hide-header="true" v-model="date"></v-date-picker>
+      <v-date-picker :hide-header="false" v-model="date"></v-date-picker>
     </v-card>
   </v-menu>
 </template>

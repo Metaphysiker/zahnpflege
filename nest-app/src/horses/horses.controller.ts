@@ -16,7 +16,6 @@ export class HorsesController {
 
   @Post()
   create(@Body() horse: IHorse) {
-    console.log(horse);
     return this.horsesService.create(horse);
   }
 

@@ -11,11 +11,13 @@ const horseToBeEdited = defineModel({
 });
 </script>
 <template>
-  <v-card>
-    <v-text-field label="Name" v-model="horseToBeEdited.name"></v-text-field>
-    <DateSelecter
-      label="Letzter Beschlag"
-      v-model="horseToBeEdited.lastTimeBeschlagen"
-    />
-  </v-card>
+  <v-text-field
+    label="Name"
+    v-model="horseToBeEdited.name"
+    variant="underlined"
+  ></v-text-field>
+  <DateSelecter
+    label="Letzter Beschlag"
+    v-model="horseToBeEdited.lastTimeBeschlagen"
+  />
 </template>

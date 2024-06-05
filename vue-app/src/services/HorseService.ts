@@ -16,7 +16,6 @@ export class HorseService implements IService {
       this.axiosInstance
         .get("horses")
         .then((response: any) => {
-          console.log(response.data);
           const horses = this.horse.convertToHorses(response.data);
           resolve(horses);
         })

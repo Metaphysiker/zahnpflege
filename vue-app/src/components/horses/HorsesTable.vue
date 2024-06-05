@@ -28,7 +28,6 @@ const isSpecialColumn = (header: string) => {
 
 onMounted(() => {
   horseService.findAll().then((data) => {
-    console.log(data);
     horses.value = data;
   });
 });
