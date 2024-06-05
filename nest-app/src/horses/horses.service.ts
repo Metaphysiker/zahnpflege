@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHorseDto } from './dto/create-horse.dto';
-import { UpdateHorseDto } from './dto/update-horse.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Horse } from './entities/horse.entity';
+import { Horse as HorseEntity } from './entities/horse.entity';
 import { Repository } from 'typeorm';
+import { Horse } from 'src/shared/classes/Horse';
+import { IHorse } from 'src/shared/interfaces/IHorse';
 
 @Injectable()
 export class HorsesService {
   constructor(
-    @InjectRepository(Horse)
-    private horsesRepository: Repository<Horse>,
+    @InjectRepository(HorseEntity)
+    private horsesRepository: Repository<HorseEntity>,
   ) {}
 
-  create(createHorseDto: CreateHorseDto) {
-    this.horsesRepository.save(createHorseDto);
+  create(horse: IHorse) {
+    this.horsesRepository.save(horse);
   }
 
   findAll() {
@@ -24,7 +24,7 @@ export class HorsesService {
     return `This action returns a #${id} horse`;
   }
 
-  update(id: number, updateHorseDto: UpdateHorseDto) {
+  update(id: number, horse: IHorse) {
     return `This action updates a #${id} horse`;
   }
 

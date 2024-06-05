@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { Ref, onMounted, ref } from "vue";
+import { Ref, inject, onMounted, ref } from "vue";
 import type { IHorse } from "../../shared/interfaces/IHorse";
-import { Horse } from "../../shared/classes/Horse";
 import { DateFormatter } from "../../helpers/DateFormatter";
-import { DateHelper } from "../../helpers/DateHelper";
-const dateHelper = new DateHelper();
+import { HorseService } from "../../services/HorseService";
+import type { AxiosStatic } from "axios";
+const axios: AxiosStatic | undefined = inject("axios");
+const horseService = new HorseService(axios);
 const horses: Ref<IHorse[]> = ref([]);
 const dateFormatter = new DateFormatter();
 const availableTableDataHeaders = ref([
@@ -19,27 +20,17 @@ const availableTableDataHeaders = ref([
   { key: "action", title: "Aktion", selected: true },
 ]);
 
-const calculateNextBeschlag = (horse: IHorse) => {
-  const nextTimeBeschlag = dateHelper.addDays(
-    horse.lastTimeBeschlagen,
-    horse.numberOfWeeksUntilNextBeschlag * 7
-  );
-  return nextTimeBeschlag;
-};
-
 const isSpecialColumn = (header: string) => {
-  return ["lastTimeBeschlagen", "action"].includes(header);
+  return ["lastTimeBeschlagen", "nextTimeBeschlagen", "action"].includes(
+    header
+  );
 };
 
 onMounted(() => {
-  const horse1 = new Horse();
-  horse1.name = "Horse 1";
-  horse1.lastTimeBeschlagen = new Date();
-  horse1.numberOfWeeksUntilNextBeschlag = 1;
-  const horse2 = new Horse();
-  horse2.lastTimeBeschlagen = dateHelper.addDays(new Date(), -1);
-  const horse3 = new Horse();
-  horses.value = [horse1, horse2, horse3];
+  horseService.findAll().then((data) => {
+    console.log(data);
+    horses.value = data;
+  });
 });
 </script>
 
@@ -61,12 +52,8 @@ onMounted(() => {
             <template v-if="header.key === 'lastTimeBeschlagen'">
               {{ dateFormatter.dddotmmdotyyyy(row.item["lastTimeBeschlagen"]) }}
             </template>
-          </div>
-          <div v-if="row.item && !row.item.hasOwnProperty(header.key)">
             <template v-if="header.key === 'nextTimeBeschlagen'">
-              {{
-                dateFormatter.dddotmmdotyyyy(calculateNextBeschlag(row.item))
-              }}
+              {{ dateFormatter.dddotmmdotyyyy(row.item["nextTimeBeschlagen"]) }}
             </template>
           </div>
         </td>

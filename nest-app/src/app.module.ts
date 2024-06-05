@@ -8,12 +8,12 @@ import { HorsesModule } from './horses/horses.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'db',
       port: 3306,
       username: 'test',
       password: 'test',
       database: 'test',
-      entities: [],
+      synchronize: true,
       autoLoadEntities: true,
     }),
     HorsesModule,
@@ -22,3 +22,4 @@ import { HorsesModule } from './horses/horses.module';
   providers: [AppService],
 })
 export class AppModule {}
+//API_BASE_URL=http://nest:8082/

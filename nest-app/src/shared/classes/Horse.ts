@@ -11,7 +11,6 @@ export class Horse implements IHorse {
     this.id = 0;
     this.name = "";
     this.lastTimeBeschlagen = new Date();
-    this.nextTimeBeschlagen = new Date();
     this.numberOfWeeksUntilNextBeschlagen = 0;
   }
 
@@ -26,8 +25,8 @@ export class Horse implements IHorse {
   }
 
   convertToHorses(horses: IHorse[]): Horse[] {
-    return horses.map((horse) => {
-      return new Horse().convertToHorse(horse);
+    return horses.map((horse: IHorse) => {
+      return this.convertToHorse(horse);
     });
   }
 }
