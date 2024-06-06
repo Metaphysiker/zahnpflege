@@ -20,4 +20,10 @@ const horseToBeEdited = defineModel({
     label="Letzter Beschlag"
     v-model="horseToBeEdited.lastTimeBeschlagen"
   />
+  <v-text-field
+    label="Wochen bis nächster Beschlag"
+    v-model="horseToBeEdited.numberOfWeeksUntilNextBeschlagen"
+    variant="underlined"
+    type="number"
+  ></v-text-field>
 </template>

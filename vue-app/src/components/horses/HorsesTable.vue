@@ -2,18 +2,13 @@
 import { Ref, inject, onMounted, ref } from "vue";
 import type { IHorse } from "../../shared/interfaces/IHorse";
 import { DateFormatter } from "../../helpers/DateFormatter";
-import { HorseService } from "../../services/HorseService";
-import type { AxiosStatic } from "axios";
-const axios: AxiosStatic | undefined = inject("axios");
-const horseService = new HorseService(axios);
-const horses: Ref<IHorse[]> = ref([]);
 const dateFormatter = new DateFormatter();
 const availableTableDataHeaders = ref([
   { key: "name", title: "Name", selected: true },
   { key: "lastTimeBeschlagen", title: "Letzer Beschlag", selected: true },
   { key: "nextTimeBeschlagen", title: "nächstes Mal", selected: true },
   {
-    key: "numberOfWeeksUntilNextBeschlag",
+    key: "numberOfWeeksUntilNextBeschlagen",
     title: "Wochen bis nächster Beschlag",
     selected: true,
   },
@@ -26,11 +21,18 @@ const isSpecialColumn = (header: string) => {
   );
 };
 
-onMounted(() => {
-  horseService.findAll().then((data) => {
-    horses.value = data;
-  });
+const props = defineProps({
+  horses: {
+    required: true,
+    type: Object as () => IHorse[],
+  },
 });
+
+const clickOnBeschlagen = (horse: IHorse) => {
+  emit("clickOnBeschlagen", horse);
+};
+
+const emit = defineEmits(["clickOnBeschlagen"]);
 </script>
 
 <template>
@@ -55,6 +57,11 @@ onMounted(() => {
               {{ dateFormatter.dddotmmdotyyyy(row.item["nextTimeBeschlagen"]) }}
             </template>
           </div>
+          <template v-if="header.key === 'action'">
+            <v-btn color="primary" @click="() => clickOnBeschlagen(row.item)"
+              >Beschlagen</v-btn
+            >
+          </template>
         </td>
       </tr>
     </template></v-data-table

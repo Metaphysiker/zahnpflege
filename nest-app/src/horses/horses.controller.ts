@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { HorsesService } from './horses.service';
 import { IHorse } from 'src/shared/interfaces/IHorse';
@@ -29,9 +30,9 @@ export class HorsesController {
     return this.horsesService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() horse: IHorse) {
-    return this.horsesService.update(+id, horse);
+  @Put()
+  update(@Body() horse: IHorse) {
+    return this.horsesService.update(horse);
   }
 
   @Delete(':id')

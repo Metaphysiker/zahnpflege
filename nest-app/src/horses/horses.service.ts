@@ -12,8 +12,8 @@ export class HorsesService {
     private horsesRepository: Repository<HorseEntity>,
   ) {}
 
-  create(horse: IHorse) {
-    this.horsesRepository.save(horse);
+  async create(horse: IHorse) {
+    return await this.horsesRepository.save(horse);
   }
 
   findAll() {
@@ -24,8 +24,13 @@ export class HorsesService {
     return `This action returns a #${id} horse`;
   }
 
-  update(id: number, horse: IHorse) {
-    return `This action updates a #${id} horse`;
+  async update(horse: IHorse) {
+    const entity = this.horsesRepository.findOneBy({ id: horse.id });
+    await this.horsesRepository.update(
+      { id: horse.id },
+      Object.assign(entity, horse),
+    );
+    return entity;
   }
 
   remove(id: number) {

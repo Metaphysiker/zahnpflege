@@ -38,4 +38,18 @@ export class HorseService implements IService {
         });
     });
   }
+
+  update(horse: IHorse) {
+    return new Promise<IHorse>((resolve, reject) => {
+      this.axiosInstance
+        .put("horses", horse)
+        .then((response: any) => {
+          const horse = this.horse.convertToHorse(response.data);
+          resolve(horse);
+        })
+        .catch((e: any) => {
+          reject(e);
+        });
+    });
+  }
 }
