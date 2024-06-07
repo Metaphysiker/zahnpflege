@@ -52,4 +52,17 @@ export class HorseService implements IService {
         });
     });
   }
+
+  delete(horse: IHorse) {
+    return new Promise<void>((resolve, reject) => {
+      this.axiosInstance
+        .delete("horses/" + horse.id)
+        .then((response: any) => {
+          resolve();
+        })
+        .catch((e: any) => {
+          reject(e);
+        });
+    });
+  }
 }

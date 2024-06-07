@@ -12,7 +12,18 @@ export class Horse implements IHorse {
     this.name = "";
     this.lastTimeBeschlagen = new Date();
     this.nextTimeBeschlagen = new Date();
-    this.numberOfWeeksUntilNextBeschlagen = 0;
+    this.numberOfWeeksUntilNextBeschlagen = 8;
+  }
+
+  clone(original: IHorse): IHorse {
+    const horse = new Horse();
+    horse.id = original.id;
+    horse.name = original.name;
+    horse.lastTimeBeschlagen = new Date(original.lastTimeBeschlagen);
+    horse.nextTimeBeschlagen = new Date(original.nextTimeBeschlagen);
+    horse.numberOfWeeksUntilNextBeschlagen =
+      original.numberOfWeeksUntilNextBeschlagen;
+    return horse;
   }
 
   convertToHorse(horse: IHorse): Horse {

@@ -16,11 +16,9 @@ const create = () => {
 };
 </script>
 <template>
-  <v-card>
-    <v-card-title>Neues Pferd </v-card-title>
-    <v-card-text>
-      <HorseForm v-model="newHorse"></HorseForm>
-      <v-btn @click="create()">Speichern</v-btn>
-    </v-card-text>
-  </v-card>
+  <v-card-title>Neues Pferd </v-card-title>
+  <v-card-text>
+    <HorseForm v-model="newHorse"></HorseForm>
+    <v-btn @click="create()">Speichern</v-btn>
+  </v-card-text>
 </template>

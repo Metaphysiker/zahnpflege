@@ -34,6 +34,7 @@ export class HorsesService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} horse`;
+    console.log('remove', id);
+    return this.horsesRepository.delete(id);
   }
 }

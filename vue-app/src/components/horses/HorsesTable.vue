@@ -2,6 +2,8 @@
 import { Ref, inject, onMounted, ref } from "vue";
 import type { IHorse } from "../../shared/interfaces/IHorse";
 import { DateFormatter } from "../../helpers/DateFormatter";
+import { UrgencyHelper } from "../../helpers/UrgencyHelper";
+const urgencyHelper = new UrgencyHelper();
 const dateFormatter = new DateFormatter();
 const availableTableDataHeaders = ref([
   { key: "name", title: "Name", selected: true },
@@ -9,7 +11,7 @@ const availableTableDataHeaders = ref([
   { key: "nextTimeBeschlagen", title: "nächstes Mal", selected: true },
   {
     key: "numberOfWeeksUntilNextBeschlagen",
-    title: "Wochen bis nächster Beschlag",
+    title: "Hufpflegerhythmus in Wochen",
     selected: true,
   },
   { key: "action", title: "Aktion", selected: true },
@@ -32,13 +34,22 @@ const clickOnBeschlagen = (horse: IHorse) => {
   emit("clickOnBeschlagen", horse);
 };
 
-const emit = defineEmits(["clickOnBeschlagen"]);
+const clickOnDelete = (horse: IHorse) => {
+  emit("clickOnDelete", horse);
+};
+
+const clickOnEdit = (horse: IHorse) => {
+  emit("clickOnEdit", horse);
+};
+
+const emit = defineEmits(["clickOnBeschlagen", "clickOnDelete", "clickOnEdit"]);
 </script>
 
 <template>
   <v-data-table
     :headers="availableTableDataHeaders.filter((h) => h.selected)"
     :items="horses"
+    hide-default-footer
   >
     <template v-slot:item="row">
       <tr>
@@ -54,13 +65,32 @@ const emit = defineEmits(["clickOnBeschlagen"]);
               {{ dateFormatter.dddotmmdotyyyy(row.item["lastTimeBeschlagen"]) }}
             </template>
             <template v-if="header.key === 'nextTimeBeschlagen'">
-              {{ dateFormatter.dddotmmdotyyyy(row.item["nextTimeBeschlagen"]) }}
+              <div
+                class="rounded pa-1 text-center"
+                :class="urgencyHelper.getClassForUrgency(row.item)"
+              >
+                {{
+                  dateFormatter.dddotmmdotyyyy(row.item["nextTimeBeschlagen"])
+                }}
+              </div>
             </template>
           </div>
           <template v-if="header.key === 'action'">
-            <v-btn color="primary" @click="() => clickOnBeschlagen(row.item)"
-              >Beschlagen</v-btn
-            >
+            <div class="d-flex">
+              <v-btn
+                color="primary"
+                class="me-2"
+                @click="clickOnBeschlagen(row.item)"
+                >Beschlagen</v-btn
+              >
+              <v-btn color="green" class="me-2" @click="clickOnEdit(row.item)"
+                ><v-icon> mdi-pencil </v-icon></v-btn
+              >
+
+              <v-btn color="red" @click="clickOnDelete(row.item)"
+                ><v-icon> mdi-close-circle-outline </v-icon></v-btn
+              >
+            </div>
           </template>
         </td>
       </tr>
