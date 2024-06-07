@@ -32,8 +32,13 @@ services:
       - "3306:3306"
     env_file:
       - .env
+    volumes:
+      - hufpflegedbdata:/var/lib/mysql
   npm:
     build: ../../tools/npm
     volumes:
       - ../../:/app
     user: "${UID}:${GID}"
+
+volumes:
+  hufpflegedbdata:
