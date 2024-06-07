@@ -13,7 +13,7 @@ import { HorsesModule } from './horses/horses.module';
       username: 'test',
       password: 'test',
       database: 'test',
-      synchronize: true,
+      synchronize: false,
       autoLoadEntities: true,
     }),
     HorsesModule,
