@@ -1,5 +1,5 @@
 export interface IHorse {
-  id: number;
+  _id: number;
   name: string;
   lastTimeBeschlagen: Date;
   nextTimeBeschlagen: Date;

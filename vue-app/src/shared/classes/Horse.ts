@@ -1,14 +1,14 @@
 import { IHorse } from "../interfaces/IHorse";
 
 export class Horse implements IHorse {
-  id: number;
+  _id: number;
   name: string;
   lastTimeBeschlagen: Date;
   numberOfWeeksUntilNextBeschlagen: number;
   nextTimeBeschlagen: Date;
 
   constructor() {
-    this.id = 0;
+    this._id = 0;
     this.name = "";
     this.lastTimeBeschlagen = new Date();
     this.nextTimeBeschlagen = new Date();
@@ -17,7 +17,7 @@ export class Horse implements IHorse {
 
   clone(original: IHorse): IHorse {
     const horse = new Horse();
-    horse.id = original.id;
+    horse._id = original._id;
     horse.name = original.name;
     horse.lastTimeBeschlagen = new Date(original.lastTimeBeschlagen);
     horse.nextTimeBeschlagen = new Date(original.nextTimeBeschlagen);
@@ -27,7 +27,7 @@ export class Horse implements IHorse {
   }
 
   convertToHorse(horse: IHorse): Horse {
-    this.id = horse.id;
+    this._id = horse._id;
     this.name = horse.name;
     this.numberOfWeeksUntilNextBeschlagen =
       horse.numberOfWeeksUntilNextBeschlagen;

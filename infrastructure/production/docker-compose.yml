@@ -6,9 +6,20 @@ services:
       - 3001:3001
     depends_on:
       - db
-  db:
-    image: mysql
+  express:
+    build:
+      context: ./express-app
+      dockerfile: Dockerfile
+    image: metaphysiker/ws_mgr_express:development
+    env_file:
+      - .env
     ports:
-      - "3306:3306"
+      - "${PORT_BACKEND}:3000"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: "mongo"
+    volumes:
+      - mongodata:/data/db
     env_file:
       - .env

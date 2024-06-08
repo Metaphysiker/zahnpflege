@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  vue:
+    build:
+      context: ./vue-app
+      dockerfile: Dockerfile
+      target: development-stage
+      args:
+        VITE_API_BASE_URL: "${API_BASE_URL}"
+    volumes:
+      - ./vue-app/src:/app/src
+    env_file:
+      - .env
+    ports:
+      - "${PORT_FRONTEND}:8080"
+    depends_on:
+      - mongodb
+  express:
+    build:
+      context: ./express-app
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "${PORT_BACKEND}:3000"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./express-app/morgan-log:/app/morgan-log
+  mongodb:
+    image: "mongo"
+    volumes:
+      - mongodata:/data/db
+    env_file:
+      - .env
+  npm:
+    build: ./npm
+    volumes:
+      - ./:/app
+    profiles:
+      - development
+    user: "${UID}:${GID}"
+
+volumes:
+  mongodata:
