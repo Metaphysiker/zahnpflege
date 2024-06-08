@@ -8,13 +8,7 @@ services:
       - db
   db:
     image: mysql
-    restart: always
     ports:
       - "3306:3306"
     env_file:
       - .env
-    volumes:
-      - hufpflegedbdata:/var/lib/mysql
-
-volumes:
-  hufpflegedbdata:
