@@ -50,6 +50,7 @@ const emit = defineEmits(["clickOnBeschlagen", "clickOnDelete", "clickOnEdit"]);
     :headers="availableTableDataHeaders.filter((h) => h.selected)"
     :items="horses"
     hide-default-footer
+    :items-per-page="100"
   >
     <template v-slot:item="row">
       <tr>
