@@ -1,32 +1,44 @@
 import { IHorse } from "../interfaces/IHorse";
 
 export class Horse implements IHorse {
-  id: number;
+  _id: number;
   name: string;
-  lastTimeBeschlagen: Date;
-  numberOfWeeksUntilNextBeschlagen: number;
-  nextTimeBeschlagen: Date;
+  lastTimeTreated: Date;
+  nextTreatment: Date;
+  numberOfWeeksUntilNextTreatment: number;
 
   constructor() {
-    this.id = 0;
+    this._id = 0;
     this.name = "";
-    this.lastTimeBeschlagen = new Date();
-    this.numberOfWeeksUntilNextBeschlagen = 0;
+    this.lastTimeTreated = new Date();
+    this.nextTreatment = new Date();
+    this.numberOfWeeksUntilNextTreatment = 8;
+  }
+
+  clone(original: IHorse): IHorse {
+    const horse = new Horse();
+    horse._id = original._id;
+    horse.name = original.name;
+    horse.lastTimeTreated = new Date(original.lastTimeTreated);
+    horse.nextTreatment = new Date(original.nextTreatment);
+    horse.numberOfWeeksUntilNextTreatment =
+      original.numberOfWeeksUntilNextTreatment;
+    return horse;
   }
 
   convertToHorse(horse: IHorse): Horse {
-    this.id = horse.id;
+    this._id = horse._id;
     this.name = horse.name;
-    this.numberOfWeeksUntilNextBeschlagen =
-      horse.numberOfWeeksUntilNextBeschlagen;
-    this.lastTimeBeschlagen = new Date(horse.lastTimeBeschlagen);
-    this.nextTimeBeschlagen = new Date(horse.nextTimeBeschlagen);
+    this.lastTimeTreated = new Date(horse.lastTimeTreated);
+    this.nextTreatment = new Date(horse.nextTreatment);
+    this.numberOfWeeksUntilNextTreatment =
+      horse.numberOfWeeksUntilNextTreatment;
     return this;
   }
 
   convertToHorses(horses: IHorse[]): Horse[] {
-    return horses.map((horse: IHorse) => {
-      return this.convertToHorse(horse);
+    return horses.map((horse) => {
+      return new Horse().convertToHorse(horse);
     });
   }
 }

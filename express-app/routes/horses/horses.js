@@ -14,12 +14,13 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
+        console.log("POST")
         console.log(req.body)
         let horseModel = await HorseModel.create({
             name: req.body.name,
-            lastTimeBeschlagen: req.body.lastTimeBeschlagen,
-            nextTimeBeschlagen: req.body.nextTimeBeschlagen,
-            numberOfWeeksUntilNextBeschlagen: req.body.numberOfWeeksUntilNextBeschlagen
+            lastTimeTreated: req.body.lastTimeTreated,
+            nextTreatment: req.body.nextTreatment,
+            numberOfWeeksUntilNextTreatment: req.body.numberOfWeeksUntilNextTreatment
         });
         res.status(201).json({ message: "HorseModel created successfully" });
     } catch (e) {
@@ -30,10 +31,12 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         let horseModel = await HorseModel.findById(req.params.id);
+        if (!horseModel) return res.status(404).json({ message: "HorseModel not found" });
+
         horseModel.name = req.body.name;
-        horseModel.lastTimeBeschlagen = req.body.lastTimeBeschlagen;
-        horseModel.nextTimeBeschlagen = req.body.nextTimeBeschlagen;
-        horseModel.numberOfWeeksUntilNextBeschlagen = req.body.numberOfWeeksUntilNextBeschlagen;
+        horseModel.lastTimeTreated = req.body.lastTimeTreated;
+        horseModel.nextTreatment = req.body.nextTreatment;
+        horseModel.numberOfWeeksUntilNextTreatment = req.body.numberOfWeeksUntilNextTreatment;
         await horseModel.save();
         res.json({ message: "HorseModel updated successfully" });
     } catch (e) {

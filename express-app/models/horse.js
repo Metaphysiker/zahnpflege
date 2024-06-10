@@ -7,15 +7,15 @@ const HorseSchema = new Schema({
     type: String,
     required: true
   },
-  lastTimeBeschlagen: {
+  lastTimeTreated: {
     type: Date,
     required: false
   },
-  nextTimeBeschlagen: {
+  nextTreatment: {
     type: Date,
     required: false
   },
-  numberOfWeeksUntilNextBeschlagen: {
+  numberOfWeeksUntilNextTreatment: {
     type: Number,
     required: false
   }

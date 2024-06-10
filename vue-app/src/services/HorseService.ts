@@ -28,6 +28,7 @@ export class HorseService implements IService {
 
   create(horse: IHorse) {
     return new Promise<IHorse>((resolve, reject) => {
+      console.log(horse);
       this.axiosInstance
         .post("horses", horse)
         .then((response: any) => {

@@ -8,9 +8,9 @@ export class Horse implements IHorse {
   @Column()
   name: string;
   @Column()
-  lastTimeBeschlagen: Date;
+  lastTimeTreated: Date;
   @Column()
-  numberOfWeeksUntilNextBeschlagen: number;
+  nextTreatment: Date;
   @Column()
-  nextTimeBeschlagen: Date;
+  numberOfWeeksUntilNextTreatment: number;
 }

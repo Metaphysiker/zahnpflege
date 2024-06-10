@@ -25,17 +25,17 @@ const numberOfWeeksUntilNextBeschlagenChanged = () => {
   ></v-text-field>
   <DateSelecter
     label="Letzter Beschlag"
-    v-model="horseToBeEdited.lastTimeBeschlagen"
+    v-model="horseToBeEdited.lastTimeTreated"
   />
   <v-text-field
-    label="Hufpflegerhythmus in Wochen"
-    v-model="horseToBeEdited.numberOfWeeksUntilNextBeschlagen"
+    label="Zahnpflegerhythmus in Wochen"
+    v-model="horseToBeEdited.numberOfWeeksUntilNextTreatment"
     variant="underlined"
     type="number"
     :change="numberOfWeeksUntilNextBeschlagenChanged()"
   ></v-text-field>
   <div class="my-2">
-    Nächstex Mal beschlagen am:
-    {{ dateFormatter.dddotmmdotyyyy(horseToBeEdited.nextTimeBeschlagen) }}
+    Nächste Mal am:
+    {{ dateFormatter.dddotmmdotyyyy(horseToBeEdited.nextTreatment) }}
   </div>
 </template>

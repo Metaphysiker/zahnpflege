@@ -24,7 +24,7 @@ onMounted(() => {
   reload();
 });
 
-const horseBeschlagen = (horse: IHorse) => {
+const horseTreated = (horse: IHorse) => {
   horseHelper.beschlagen(horse);
   horseService.update(horse).then(() => {
     reload();
@@ -49,7 +49,7 @@ const deleteHorse = () => {
   <v-container fluid>
     <HorsesTable
       :horses="horses"
-      @clickOnBeschlagen="(horse) => horseBeschlagen(horse)"
+      @clickOnBehandelt="(horse) => horseTreated(horse)"
       @clickOnDelete="
         (horse) => {
           deleteHorseDialog = true;

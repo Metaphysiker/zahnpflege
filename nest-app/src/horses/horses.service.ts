@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Horse as HorseEntity } from './entities/horse.entity';
 import { Repository } from 'typeorm';
-import { Horse } from 'src/shared/classes/Horse';
 import { IHorse } from 'src/shared/interfaces/IHorse';
 
 @Injectable()

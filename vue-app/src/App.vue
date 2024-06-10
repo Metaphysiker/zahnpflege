@@ -5,7 +5,7 @@
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
       </template>
 
-      <v-app-bar-title>Hufpflege</v-app-bar-title>
+      <v-app-bar-title>Zahnpflege</v-app-bar-title>
     </v-app-bar>
     <v-main> <RouterView /></v-main>
   </v-app>

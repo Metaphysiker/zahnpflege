@@ -1,7 +1,7 @@
 export class UrgencyHelper {
   calculateUrgency(horse) {
     const now = new Date();
-    const nextTimeBeschlagen = new Date(horse.nextTimeBeschlagen);
+    const nextTimeBeschlagen = new Date(horse.nextTreatment);
     const difference = nextTimeBeschlagen.getTime() - now.getTime();
     return difference / (1000 * 60 * 60 * 24);
   }

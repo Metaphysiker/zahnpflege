@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   vue:
     build:
@@ -30,7 +29,7 @@ services:
   mongodb:
     image: "mongo"
     volumes:
-      - mongodata:/data/db
+      - mongodatazahnpflege:/data/db
     env_file:
       - .env
   npm:
@@ -42,4 +41,4 @@ services:
     user: "${UID}:${GID}"
 
 volumes:
-  mongodata:
+  mongodatazahnpflege:

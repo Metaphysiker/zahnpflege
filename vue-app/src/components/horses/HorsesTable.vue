@@ -7,20 +7,18 @@ const urgencyHelper = new UrgencyHelper();
 const dateFormatter = new DateFormatter();
 const availableTableDataHeaders = ref([
   { key: "name", title: "Name", selected: true },
-  { key: "lastTimeBeschlagen", title: "Letzer Beschlag", selected: true },
-  { key: "nextTimeBeschlagen", title: "nächstes Mal", selected: true },
+  { key: "lastTimeTreated", title: "Letze Behandlung", selected: true },
+  { key: "nextTreatment", title: "nächstes Mal", selected: true },
   {
-    key: "numberOfWeeksUntilNextBeschlagen",
-    title: "Hufpflegerhythmus in Wochen",
+    key: "numberOfWeeksUntilNextTreatment",
+    title: "Zahnpflegerhythmus in Wochen",
     selected: true,
   },
   { key: "action", title: "Aktion", selected: true },
 ]);
 
 const isSpecialColumn = (header: string) => {
-  return ["lastTimeBeschlagen", "nextTimeBeschlagen", "action"].includes(
-    header
-  );
+  return ["lastTimeTreated", "nextTreatment", "action"].includes(header);
 };
 
 const props = defineProps({
@@ -30,8 +28,8 @@ const props = defineProps({
   },
 });
 
-const clickOnBeschlagen = (horse: IHorse) => {
-  emit("clickOnBeschlagen", horse);
+const clickOnBehandelt = (horse: IHorse) => {
+  emit("clickOnBehandelt", horse);
 };
 
 const clickOnDelete = (horse: IHorse) => {
@@ -42,7 +40,7 @@ const clickOnEdit = (horse: IHorse) => {
   emit("clickOnEdit", horse);
 };
 
-const emit = defineEmits(["clickOnBeschlagen", "clickOnDelete", "clickOnEdit"]);
+const emit = defineEmits(["clickOnBehandelt", "clickOnDelete", "clickOnEdit"]);
 </script>
 
 <template>
@@ -62,17 +60,15 @@ const emit = defineEmits(["clickOnBeschlagen", "clickOnDelete", "clickOnEdit"]);
             <template v-if="!isSpecialColumn(header.key)">
               {{ row.item[header.key as keyof IHorse] }}
             </template>
-            <template v-if="header.key === 'lastTimeBeschlagen'">
-              {{ dateFormatter.dddotmmdotyyyy(row.item["lastTimeBeschlagen"]) }}
+            <template v-if="header.key === 'lastTimeTreated'">
+              {{ dateFormatter.dddotmmdotyyyy(row.item["lastTimeTreated"]) }}
             </template>
-            <template v-if="header.key === 'nextTimeBeschlagen'">
+            <template v-if="header.key === 'nextTreatment'">
               <div
                 class="rounded pa-1 text-center"
                 :class="urgencyHelper.getClassForUrgency(row.item)"
               >
-                {{
-                  dateFormatter.dddotmmdotyyyy(row.item["nextTimeBeschlagen"])
-                }}
+                {{ dateFormatter.dddotmmdotyyyy(row.item["nextTreatment"]) }}
               </div>
             </template>
           </div>
@@ -81,8 +77,8 @@ const emit = defineEmits(["clickOnBeschlagen", "clickOnDelete", "clickOnEdit"]);
               <v-btn
                 color="primary"
                 class="me-2"
-                @click="clickOnBeschlagen(row.item)"
-                >Beschlagen</v-btn
+                @click="clickOnBehandelt(row.item)"
+                >Behandelt</v-btn
               >
               <v-btn color="green" class="me-2" @click="clickOnEdit(row.item)"
                 ><v-icon> mdi-pencil </v-icon></v-btn

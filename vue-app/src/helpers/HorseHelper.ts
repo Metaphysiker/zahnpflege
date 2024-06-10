@@ -3,14 +3,14 @@ import { DateHelper } from "./DateHelper";
 export class HorseHelper {
   dateHelper = new DateHelper();
   beschlagen(horse: IHorse) {
-    horse.lastTimeBeschlagen = new Date();
+    horse.lastTimeTreated = new Date();
     this.calculateAndSetNextTimeBeschlagen(horse);
   }
 
   calculateAndSetNextTimeBeschlagen(horse: IHorse) {
-    horse.nextTimeBeschlagen = this.dateHelper.addDays(
-      horse.lastTimeBeschlagen,
-      horse.numberOfWeeksUntilNextBeschlagen * 7
+    horse.nextTreatment = this.dateHelper.addDays(
+      horse.lastTimeTreated,
+      horse.numberOfWeeksUntilNextTreatment * 7
     );
   }
 }
